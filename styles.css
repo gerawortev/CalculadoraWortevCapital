@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+*{
+    margin: 0 auto;
+    font-family: 'Poppins';
+}
+
+ 
+/*Estilos contenedor de inputs */
+.calc__input__container{
+  width: 100%;
+  height: auto;
+  padding: 5%;
+  padding-left: 7% !important;
+  padding-right: 7% !important;
+  background-color: #2B2B2B;
+  color: #ffff;
+}
+
+.calc__input__cantidad{
+  width: 80%;
+}
+.calc__slider{
+  width: 100%;
+}
+
+/* Estilos contenedor resultados */
+.calc__result__container{
+  background-color: #F6F6F6;
+  width: 100%;
+  height: auto;
+  padding: 5%;
+  padding-left: 7% !important;
+  padding-right: 7% !important;
+}
+
+.calc__text__results{
+  color: #666666;
+}
+
+.calc__line{
+
+  border-top: 1px solid #666666;
+  height: 2px;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 20px;
+}
+
+
+/* Estilos gráfico de calculadora */
+
+/* Opcion 1 */
+.calc__chart{
+  margin-top: 3em;
+  position: relative;
+}
+
+.calc__chart__text1{
+  position: absolute; 
+  left: 37%; 
+  top: 9em;
+}
+
+.calc__chart__text2{
+  position: absolute; 
+  left: 42%; 
+  top: 12em;
+}
+
+/*Opcion 2 */
+/* 
+.calc__graph__circular{
+  height: 100px;
+  width: 100px;
+  background: black;
+  position: relative;
+  transform: scale(2);
+}
+
+.calc__graph__circular .calc__graph__inner{
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  height: 80px;
+  width: 80px;
+  margin: -40px 0 0 -40px;
+  border-radius: 100%;
+  background: #F6F6F6;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.calc__graph__circular .calc__graph__bar{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: black;
+  border-radius: 100%;
+  -webkit-border-radius: 100;
+  clip: rect(0px, 100px, 100px, 50px);  
+}
+
+.calc__graph__circle .calc__graph__bar .calc__graph__progress{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  -webkit-border-radius: 100;
+  clip: rect(0px, 50px, 100px, 0px);
+  background: #14DA13;
+}
+
+.calc__graph__circle .calc__graph__left .calc__graph__progress{
+  z-index: 1;
+  animation: left 1s linear both;
+}
+
+@keyframes left {
+  100%{
+    transform: rotate(180deg);
+  }
+}
+
+.calc__graph__circle .calc__graph__right{
+  z-index: 3;
+  transform: rotate(180deg);
+}
+
+.calc__graph__circle .calc__graph__right .calc__graph__progress{
+  animation: right 1s linear both;
+  animation-delay: 1s;
+}
+
+@keyframes right {
+  100%{
+    transform: rotate(180deg);
+  }
+} */
+
+
+/* Ajustes responsive */
+@media screen and (max-width: 415px) {
+  .calc__chart{
+    margin-top: 0;
+  } 
+}
