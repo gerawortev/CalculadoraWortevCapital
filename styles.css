@@ -18,9 +18,7 @@
 
 .calc__input__cantidad{
   width: 80%;
-}
-.calc__slider{
-  width: 100%;
+  text-align: end;
 }
 
 /* Estilos contenedor resultados */
@@ -66,6 +64,39 @@
   position: absolute; 
   left: 42%; 
   top: 12em;
+}
+
+.calc__slider{
+  width: 100%;
+  -webkit-appearance: none;
+  border-radius: 10px;
+  width: 100%;
+  height: 5px;
+  outline: none;
+  background: linear-gradient(90deg,#5BE55A 0%, #A7FFA4 0%);
+  opacity: 100%;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;   
+}
+
+.calc__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #01B400;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.calc__slider::-moz-range-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #01B400;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /*Opcion 2 */
@@ -214,13 +245,13 @@ font-size: 1.75rem;
   font-size: .9rem;
     font-weight: 300;
 }
-input[type=range]::-webkit-slider-thumb {
+/* input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
 }
 input[type="range"] {
  background-image: linear-gradient(#ff4500, #ff4500);
  background-image: linear-gradient(#ff4500, #ff4500);
-}
+} */
 /*fin de estilos generales */
 /*custom media querys*/
 @media (min-width: 879px) and (max-width: 1024px){
