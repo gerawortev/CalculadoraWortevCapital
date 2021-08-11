@@ -263,3 +263,37 @@ input[type="range"] {
   font-size: 1.1rem;
 }
 }
+@media (max-width: 459px){
+  .calc_main_title {
+    font-size: 1.2rem;
+}
+.calc_subtitle {
+  font-size: 1.1rem;
+}
+.calc_legend_min {
+  font-size: .75rem;
+}
+.calc_secondary_legend{
+  font-size: .7rem;
+}
+.calc_big_number_green {
+  padding-top: 20px;
+  font-size: 1rem;
+}
+.calc_totals{
+  font-size: .9rem;
+}
+.calc_helper_fix_padding{
+  max-width: 50%!important;
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+.calc_text_data{
+  font-size: .9rem;
+}
+.calc_custom_col{
+  padding-right: 0!important;
+    max-width: 50%!important;
+    padding-left: 0!important;
+}
+}
