@@ -160,6 +160,15 @@ slider2.addEventListener("input", function(){
 })
 
 
+// center message 
+var messageBox = document.getElementById('calc_result');
+var messageBoxWidth = messageBox.offsetWidth;
+var messageBoxHeight = messageBox.offsetHeight;
+
+messageBox.style.left = "calc(49% - " + messageBoxWidth / 2 + "px)";
+messageBox.style.top = "calc(50% - " + messageBoxHeight / 2 + "px)";
+// end: center message 
+
 
 
 
