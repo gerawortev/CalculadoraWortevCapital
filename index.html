@@ -35,14 +35,14 @@
                         <p class="calc_legend_min">Mínimo MXN $10,000</p>
                     </div>
                     <div class="col-6 text-right">
-                        <label for="cantidad"></label>
-                        <input placeholder="$10,000" type="text" name="cantidad" id="cantidad"
+                        <label for="cantidad">$</label>
+                        <input placeholder="10,000" type="text" name="cantidad" id="calc-cantidad"
                             class="calc__input__cantidad calc_typing_money">
                         <p class="calc_secondary_legend">Escribe una cantidad</p>
                     </div>
                 </div>
 
-                <input type="range" min="0" max="100" value="0" id="myRange1" class="calc__slider calc_slider_green">
+                <input type="range" min="0" max="100" value="0" id="calc-myRange1" class="calc__slider">
 
                 <div class="row calc_helper_top">
                     <div class="col-6">
@@ -50,12 +50,12 @@
                         <p class="calc_legend_min">Mínimo un año</p>
                     </div>
                     <div class="col-6 text-right">
-                        <p>1 año</p>
+                        <p><span id="calc-tiempo">1</span> años</p>
                     </div>
                 </div>
 
 
-                <input type="range" min="0" max="100" value="0" id="myRange2" class="calc__slider">
+                <input type="range" min="0" max="10" value="1" id="calc-myRange2" class="calc__slider2">
 
                 <div class="row calc_helper_top">
                     <div class="col-8 calc_custom_col">
@@ -63,8 +63,8 @@
                         <p class="calc_green_border calc_totals">Obtendrás un rendimiento bruto de</p>
                     </div>
                     <div class="col-4 text-right calc_custom_col">
-                        <p>$1,000,000.00</p>
-                        <p class="calc_big_number_green">$2,400.00</p>
+                        <p>$<span id="calc-input-text1">10,000.00</span></p>
+                        <p id="calc-input-text2" class="calc_big_number_green">$2,048.00</p>
                     </div>
                 </div>
 
@@ -95,14 +95,14 @@
                         <p class="calc_text_data">Total a depositar mensual</p>
                     </div>
                     <div class="col-3 text-right calc_data_result calc_helper_fix_padding">
-                        <p class="calc__text__results">$10,000.00</p>
-                        <p class="calc__text__results">$200.00</p>
-                        <p class="calc__text__results">$32.00</p>
-                        <p class="calc__text__results">$232.00</p>
-                        <p class="calc__text__results">-$21.32</p>
-                        <p class="calc__text__results">-$40.00</p>
-                        <p class="calc__text__results">-$61.32</p>
-                        <p class="calc__text__results">$170.68</p>
+                        <p id="calc-result-text1" class="calc__text__results">$ 10,000.00</p>
+                        <p id="calc-result-text2" class="calc__text__results">$ 200.00</p>
+                        <p id="calc-result-text3" class="calc__text__results">$ 32.00</p>
+                        <p id="calc-result-text4" class="calc__text__results">$ 232.00</p>
+                        <p id="calc-result-text5" class="calc__text__results">-$ 21.32</p>
+                        <p id="calc-result-text6" class="calc__text__results">-$ 40.00</p>
+                        <p id="calc-result-text7" class="calc__text__results">-$ 61.32</p>
+                        <p id="calc-result-text8" class="calc__text__results">$ 170.68</p>
                     </div>
                     <div class="calc__line"></div> <br>
                 </div>
@@ -111,14 +111,14 @@
                         <p class="calc_subtitle calc_no_right_padding">Total a depositar en un año</p>
                     </div>
                     <div class="col-6 text-right">
-                        <p class="calc_subtitle">$800,048.00</p>
+                        <p id="calc-result-total" class="calc_subtitle">$ 2,048.16</p>
                     </div>
                 </div>
 
                 <!-- Segunda opción de gráfico -->
                 <div style="text-align: center;">
-                    <div id="chart" class="calc__chart">
-                        <div id="calc_result">
+                    <div id="calc-chart" class="calc__chart">
+                        <div id="calc-result">
                             <p class="calc__chart__text1">Redimiento bruto <br> <span
                                     style="font-size: large;">$2,400.00</span></p>
                             <p class="calc__chart__text2">Inversión <br> <span style="font-size: large;">$10,000.00</span>
