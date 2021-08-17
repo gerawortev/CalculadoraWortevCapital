@@ -28,7 +28,7 @@ var plazoInv = 1;
 var options = {
   series: [75, 25],
   chart: {
-    width: 500,
+    width: 450,
     type: 'donut',
   },
   colors: ['#14DA13', '#000000'],
@@ -44,7 +44,7 @@ var options = {
     enabled: false,
   },
   responsive: [{
-    breakpoint: 1180,
+    breakpoint: 1250,
     options: {
       chart: {
         width: 300
