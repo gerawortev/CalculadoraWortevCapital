@@ -28,12 +28,12 @@ var plazoInv = 1;
 var options = {
   series: [75, 25],
   chart: {
-  width: 500,
-  type: 'donut',
+    width: 500,
+    type: 'donut',
   },
   colors: ['#14DA13', '#000000'],
   plotOptions: {
-    pie:{
+    pie: {
       donut: {
         size: '85%',
       },
@@ -61,72 +61,104 @@ chart.render();
 
 // Control de sliders
 slider1.oninput = function () {
-    montoInic = this.value*10000;
-    var aux = (parseInt(this.value*10000)).toFixed(2);
-    output1.value = formatear(aux);
-    inputText1.innerHTML = formatear(aux);
-    calcular(montoInic, plazoInv);
-    ApexCharts.exec('mychart', 'updateSeries', [this.value, this.value, this.value], true);
+  montoInic = this.value * 10000;
+  var aux = (parseInt(this.value * 10000)).toFixed(2);
+  output1.value = formatear(aux);
+  inputText1.innerHTML = formatear(aux);
+  calcular(montoInic, plazoInv);
+  ApexCharts.exec('mychart', 'updateSeries', [this.value, this.value, this.value], true);
 }
 slider2.oninput = function () {
-    plazoInv = this.value;
-    output2.innerHTML = this.value;
-    calcular(montoInic, plazoInv);
+  plazoInv = this.value;
+  output2.innerHTML = this.value;
+  calcular(montoInic, plazoInv);
 }
-slider1.addEventListener("input", function(){
-    var x = slider1.value;
-    var color = 'linear-gradient(90deg, #5BE55A '+x+'%, #ffff '+ x +'%)';
-    slider1.style.background = color;
-    invWortev = x;
+slider1.addEventListener("input", function () {
+  var x = slider1.value;
+  var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
+  slider1.style.background = color;
+  invWortev = x;
 })
-slider2.addEventListener("input", function(){
-    var x = slider2.value*10;
-    var color = 'linear-gradient(90deg, #5BE55A '+x+'%, #ffff '+ x +'%)';
-    slider2.style.background = color;
-    invWortev = x;
+slider2.addEventListener("input", function () {
+  var x = slider2.value * 10;
+  var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
+  slider2.style.background = color;
+  invWortev = x;
 })
-output1.onchange = function() {
-    montoInic = this.value;
-    var aux = formatear(parseInt(this.value).toFixed(2));
-    output1.value = aux;
-    calcular(montoInic, plazoInv);
+output1.onchange = function () {
+  montoInic = this.value;
+  var aux = formatear(parseInt(this.value).toFixed(2));
+  output1.value = aux;
+  calcular(montoInic, plazoInv);
 }
-
-// center message 
-var messageBox = document.getElementById('calc-result');
-var messageBoxWidth = messageBox.offsetWidth;
-var messageBoxHeight = messageBox.offsetHeight;
-
-messageBox.style.left = "calc(49% - " + messageBoxWidth / 2 + "px)";
-messageBox.style.top = "calc(50% - " + messageBoxHeight / 2 + "px)";
-// end: center message 
-
 
 //Actualización de datos en tiempo real y funcionalidad de calculadora
-function calcular(monto, tiempo){
-  if(monto>=0){
-    resultText1.innerHTML = "$  "+monto.toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText2.innerHTML = "$  "+(monto*0.02).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText3.innerHTML = "$  "+(monto*0.02*0.16).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText4.innerHTML = "$  "+(monto*0.02+monto*0.02*0.16).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText5.innerHTML = "$  "+(-monto*0.02*0.1066).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText6.innerHTML = "$  "+(-monto*0.02*0.2).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText7.innerHTML = "$  "+(-monto*0.02*0.1066-monto*0.02*0.2).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultText8.innerHTML = "$  "+(monto*0.02+monto*0.02*0.16-monto*0.02*0.1066-monto*0.02*0.2).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    resultTotal.innerHTML = "$  "+((monto*0.02+monto*0.02*0.16-monto*0.02*0.1066-monto*0.02*0.2)*12).toLocaleString('es-MX', {minimumFractionDigits: 2});
-    inputText2.innerHTML = "$  "+((monto*0.02+monto*0.02*0.16-monto*0.02*0.1066-monto*0.02*0.2)*12*tiempo).toLocaleString('es-MX', {minimumFractionDigits: 2});
-  }
-  else{
+function calcular(monto, tiempo) {
+  if (monto >= 0) {
+    resultText1.innerHTML = "$  " + monto.toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText2.innerHTML = "$  " + (monto * 0.02).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText3.innerHTML = "$  " + (monto * 0.02 * 0.16).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText4.innerHTML = "$  " + (monto * 0.02 + monto * 0.02 * 0.16).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText5.innerHTML = "$  " + (-monto * 0.02 * 0.1066).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText6.innerHTML = "$  " + (-monto * 0.02 * 0.2).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText7.innerHTML = "$  " + (-monto * 0.02 * 0.1066 - monto * 0.02 * 0.2).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultText8.innerHTML = "$  " + (monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    resultTotal.innerHTML = "$  " + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+    inputText2.innerHTML = "$  " + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+  } else {
     alert("Error al colocar tu número");
   }
 }
 
 //Dar formato a números
 function formatear(dato) {
-  return dato.replace(/./g, function(c, i, a) {
-	return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-    });
+  return dato.replace(/./g, function (c, i, a) {
+    return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+  });
 }
+
+// center chart copy
+function centerLegend() {
+  console.log('called!');
+  var chartBox = document.getElementById("calc-chart");
+  var chartLegend = document.getElementById("calc-result");
+
+  var chartBoxWidth = chartBox.offsetWidth;
+  var chartBoxHeight = chartBox.offsetHeight;
+
+  var messageBoxWidth = chartLegend.offsetWidth;
+  var messageBoxHeight = chartLegend.offsetHeight;
+
+  chartLegend.style.left = (chartBoxWidth - messageBoxWidth) / 2 + "px";
+  chartLegend.style.top = (chartBoxHeight - messageBoxHeight) / 2 + "px";
+}
+
+centerLegend();
+
+window.addEventListener("resize", function () {
+  centerLegend();
+});
+// end: center chart copy
 
 
 //Alternativas calculadora

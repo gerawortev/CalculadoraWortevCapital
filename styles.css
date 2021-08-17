@@ -276,6 +276,7 @@
 
 #calc-result {
   position: absolute;
+  text-align: center;
 }
 
 /*fin de estilos generales */
@@ -329,6 +330,11 @@
 
   .calc_big_number_green {
     font-size: 1.1rem;
+  }
+  .calc_helper_fix_padding {
+    max-width: 50% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
