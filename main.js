@@ -139,24 +139,20 @@ function formatear(dato) {
 
 // center chart copy
 function centerLegend() {
-  console.log('called!');
   var chartBox = document.getElementById("calc-chart");
   var chartLegend = document.getElementById("calc-result");
-
-  var chartBoxWidth = chartBox.offsetWidth;
   var chartBoxHeight = chartBox.offsetHeight;
-
-  var messageBoxWidth = chartLegend.offsetWidth;
   var messageBoxHeight = chartLegend.offsetHeight;
 
-  chartLegend.style.left = (chartBoxWidth - messageBoxWidth) / 2 + "px";
   chartLegend.style.top = (chartBoxHeight - messageBoxHeight) / 2 + "px";
 }
 
 centerLegend();
 
 window.addEventListener("resize", function () {
-  centerLegend();
+  setTimeout(function () {
+    centerLegend();
+  }, 200);
 });
 // end: center chart copy
 
