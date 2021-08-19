@@ -18,6 +18,10 @@ var resultText7 = document.getElementById("calc-result-text7");
 var resultText8 = document.getElementById("calc-result-text8");
 var resultTotal = document.getElementById("calc-result-total");
 
+var inputGraph = document.getElementById("input-graph");
+var resultGraph = document.getElementById("result-graph");
+
+
 // Variables para gráfico
 var montoInic = 10000;
 var plazoInv = 1;
@@ -26,7 +30,7 @@ var plazoInv = 1;
 
 //Opción 1
 var options = {
-  series: [75, 25],
+  series: [2400, 10000],
   chart: {
     width: 450,
     type: 'donut',
@@ -62,39 +66,42 @@ chart.render();
 // Control de sliders
 slider1.oninput = function () {
   montoInic = this.value * 10000;
+  console.log(montoInic);
   var aux = (parseInt(this.value * 10000)).toFixed(2);
   output1.value = formatear(aux);
   inputText1.innerHTML = formatear(aux);
   calcular(montoInic, plazoInv);
-  ApexCharts.exec('mychart', 'updateSeries', [this.value, this.value, this.value], true);
 }
 slider2.oninput = function () {
   plazoInv = this.value;
+  console.log(montoInic);
   output2.innerHTML = this.value;
+  calcular(montoInic, plazoInv);
+}
+output1.onchange = function () {
+  montoInic = parseInt(this.value);
+  console.log(montoInic);
+  var aux = formatear(parseInt(this.value).toFixed(2));
+  output1.value = aux;
   calcular(montoInic, plazoInv);
 }
 slider1.addEventListener("input", function () {
   var x = slider1.value;
   var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
   slider1.style.background = color;
-  invWortev = x;
 })
 slider2.addEventListener("input", function () {
   var x = slider2.value * 10;
   var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
   slider2.style.background = color;
-  invWortev = x;
 })
-output1.onchange = function () {
-  montoInic = this.value;
-  var aux = formatear(parseInt(this.value).toFixed(2));
-  output1.value = aux;
-  calcular(montoInic, plazoInv);
-}
 
 //Actualización de datos en tiempo real y funcionalidad de calculadora
 function calcular(monto, tiempo) {
   if (monto >= 0) {
+    inputGraph.innerHTML = "$  " + monto.toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
     resultText1.innerHTML = "$  " + monto.toLocaleString('es-MX', {
       minimumFractionDigits: 2
     });
@@ -125,6 +132,10 @@ function calcular(monto, tiempo) {
     inputText2.innerHTML = "$  " + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
       minimumFractionDigits: 2
     });
+    resultGraph.innerHTML = "$  " + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
+      minimumFractionDigits: 2
+    });
+      chart.updateSeries([((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 *tiempo), monto]);
   } else {
     alert("Error al colocar tu número");
   }
