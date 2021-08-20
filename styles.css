@@ -48,6 +48,31 @@
   margin-top: 20px;
 }
 
+.calc_bot{
+  background-color: white;
+}
+
+.calc_helper_bot {
+  margin-left: 2.33em;
+  margin-right: 2.33em;
+
+}
+
+.calc_helper_title {
+  margin-top: 3em;
+  margin-left: 2.33em;
+  margin-right: 2.33em;
+  display: inline-block;
+}
+
+
+.calc_helper_arrow {
+  padding: 10px;
+  margin-left: 10px;
+  width: 35px;
+  cursor: pointer;
+}
+
 
 /* Estilos gráfico de calculadora */
 
@@ -279,6 +304,7 @@
   position: absolute;
   text-align: center;
   width: 100%;
+  pointer-events:none;
 }
 .calc_table_result{
   width: 100%;

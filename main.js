@@ -32,7 +32,7 @@ var plazoInv = 1;
 var options = {
   series: [2400, 10000],
   chart: {
-    width: 450,
+    width: 500,
     type: 'donut',
   },
   colors: ['#14DA13', '#000000'],
@@ -98,7 +98,7 @@ slider2.addEventListener("input", function () {
 
 //Actualización de datos en tiempo real y funcionalidad de calculadora
 function calcular(monto, tiempo) {
-  if (monto >= 0) {
+  if (monto >= 10000) {
     inputGraph.innerHTML = "$  " + monto.toLocaleString('es-MX', {
       minimumFractionDigits: 2
     });
@@ -137,7 +137,7 @@ function calcular(monto, tiempo) {
     });
       chart.updateSeries([((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 *tiempo), monto]);
   } else {
-    alert("Error al colocar tu número");
+    alert("Tu inversión debe ser mayor a $10,000.00");
   }
 }
 
@@ -166,6 +166,20 @@ window.addEventListener("resize", function () {
   }, 200);
 });
 // end: center chart copy
+
+//Hide calc-help
+// function hide() {
+//   var text = document.getElementById("calc-helper-text");
+//   var flecha = document.getElementsByClassName("calc_helper_arrow");
+//   flecha.style = "transform: rotateX(10deg);"
+//   if(text.classList.contains("d-none")){
+//     text.classList.remove("d-none");
+//   }
+//   else {
+//     text.classList.add("d-none");
+//   }
+// }
+
 
 
 //Alternativas calculadora
