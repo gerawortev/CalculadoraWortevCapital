@@ -322,6 +322,12 @@
 .calc__chart__text2{
   color: #2B2B2B;
 }
+#result-graph{
+  font-weight: 500;
+}
+#input-graph{
+  font-weight: 500;
+}
 /*fin de estilos generales */
 /*custom media querys*/
 @media (min-width: 879px) and (max-width: 1024px) {

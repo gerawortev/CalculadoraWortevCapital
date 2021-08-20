@@ -32,7 +32,7 @@ var plazoInv = 1;
 var options = {
   series: [2400, 10000],
   chart: {
-    width: 500,
+    width: '100%',
     type: 'donut',
   },
   colors: ['#14DA13', '#000000'],
