@@ -60,6 +60,10 @@ var options = {
   },
 };
 
+// valor inicial
+var initialValue = formatear(parseInt(10000).toFixed(2));
+output1.value = initialValue;
+
 var chart = new ApexCharts(document.querySelector("#calc-chart"), options);
 chart.render();
 
