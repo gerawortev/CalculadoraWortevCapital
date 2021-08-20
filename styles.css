@@ -250,10 +250,11 @@
 }
 
 .calc_typing_money {
-  border: unset;
   padding: 5px;
-  border-radius: 5px;
-  background-color: #f2f2f2;
+    border-radius: 5px;
+    background-color: transparent;
+    border: solid 2px #fff;
+    color: #fff;
 }
 
 .calc_no_right_padding {
