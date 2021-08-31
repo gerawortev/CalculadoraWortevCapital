@@ -1,0 +1,1090 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de inversión</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <!-- styles -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Uso de apexcharts -->
+  <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\\/script>'
+        )
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+margin: 0 auto;
+font-family: 'Poppins';
+}
+
+
+/*Estilos contenedor de inputs */
+.calc__input__container {
+width: 100%;
+height: auto;
+padding: 5%;
+padding-left: 7% !important;
+padding-right: 7% !important;
+background-color: #2B2B2B;
+color: #ffff;
+}
+
+.calc__input__cantidad {
+width: 80%;
+text-align: end;
+}
+
+/* Estilos contenedor resultados */
+.calc__result__container {
+background-color: #F6F6F6;
+width: 100%;
+height: auto;
+padding: 5%;
+padding-left: 7% !important;
+padding-right: 7% !important;
+}
+
+.calc__text__results {
+text-align: end !important;
+color: #666666;
+font-weight: 500;
+}
+
+.calc__line {
+
+border-top: 1px solid #666666;
+height: 2px;
+width: 100%;
+margin-left: 15px;
+margin-right: 15px;
+margin-top: 20px;
+}
+
+.calc_bot{
+background-color: white;
+}
+
+.calc_helper_bot {
+margin-left: 2.33em;
+margin-right: 2.33em;
+
+}
+
+.calc_helper_title {
+margin-top: 3em;
+margin-left: 2.33em;
+margin-right: 2.33em;
+display: inline-block;
+}
+
+
+.calc_helper_arrow {
+padding: 10px;
+margin-left: 10px;
+width: 35px;
+cursor: pointer;
+}
+
+
+/* Estilos gráfico de calculadora */
+
+/* Opcion 1 */
+.calc__chart {
+margin-top: 1em;
+position: relative;
+}
+
+/* .calc__chart__text1{
+position: absolute;
+  left: 37%;
+  top: 35%;
+  font-size: 1.2rem;
+  color: #14da13;
+}
+
+.calc__chart__text2{
+position: absolute;
+  left: 42%;
+  top: 50%;
+  font-size: 1.2rem;
+} */
+
+.calc__slider {
+width: 100%;
+-webkit-appearance: none;
+border-radius: 10px;
+width: 100%;
+height: 5px;
+outline: none;
+background: linear-gradient(90deg, #5BE55A 0%, #ffff 0%);
+opacity: 100%;
+-webkit-transition: 0.2s;
+transition: opacity 0.2s;
+}
+.calc__slider2 {
+width: 100%;
+-webkit-appearance: none;
+border-radius: 10px;
+width: 100%;
+height: 5px;
+outline: none;
+background: linear-gradient(90deg, #5BE55A 10%, #ffff 0%);
+opacity: 100%;
+-webkit-transition: 0.2s;
+transition: opacity 0.2s;
+}
+
+.calc__slider::-webkit-slider-thumb, .calc__slider2::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 15px;
+height: 15px;
+background: #01B400;
+border-radius: 50%;
+cursor: pointer;
+}
+
+.calc__slider::-moz-range-thumb, .calc__slider2::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 15px;
+height: 15px;
+background: #01B400;
+border-radius: 50%;
+cursor: pointer;
+}
+
+/*Opcion 2 */
+/* 
+.calc__graph__circular{
+height: 100px;
+width: 100px;
+background: black;
+position: relative;
+transform: scale(2);
+}
+
+.calc__graph__circular .calc__graph__inner{
+position: absolute;
+z-index: 6;
+top: 50%;
+left: 50%;
+height: 80px;
+width: 80px;
+margin: -40px 0 0 -40px;
+border-radius: 100%;
+background: #F6F6F6;
+box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.calc__graph__circular .calc__graph__bar{
+position: absolute;
+height: 100%;
+width: 100%;
+background: black;
+border-radius: 100%;
+-webkit-border-radius: 100;
+clip: rect(0px, 100px, 100px, 50px);  
+}
+
+.calc__graph__circle .calc__graph__bar .calc__graph__progress{
+position: absolute;
+height: 100%;
+width: 100%;
+border-radius: 100%;
+-webkit-border-radius: 100;
+clip: rect(0px, 50px, 100px, 0px);
+background: #14DA13;
+}
+
+.calc__graph__circle .calc__graph__left .calc__graph__progress{
+z-index: 1;
+animation: left 1s linear both;
+}
+
+@keyframes left {
+100%{
+  transform: rotate(180deg);
+}
+}
+
+.calc__graph__circle .calc__graph__right{
+z-index: 3;
+transform: rotate(180deg);
+}
+
+.calc__graph__circle .calc__graph__right .calc__graph__progress{
+animation: right 1s linear both;
+animation-delay: 1s;
+}
+
+@keyframes right {
+100%{
+  transform: rotate(180deg);
+}
+} */
+
+
+/* Ajustes responsive */
+@media screen and (max-width: 415px) {
+.calc__chart {
+  margin-top: 0;
+}
+}
+@media (max-width: 575px){
+.et_menu_container{
+width: calc(100% - 30px);        
+    }
+.calc_btn_green{
+        margin-bottom: 30px;
+      }
+.calc_text_data {
+  line-height:23px!important;
+}
+    }
+    @media (min-width:353px) and (max-width:575px){
+      .calc__input__cantidad {
+  width: 87%;
+}
+    }
+    @media (min-width:768px) and (max-width:1024px){
+      .calc__input__cantidad {
+  width: 85%;
+}        
+    }
+/*estilos generales*/
+.calc_helper_margin {
+margin: 30px 0;
+}
+
+.calc_helper_top {
+margin-top: 30px;
+}
+
+.calc_main_title {
+font-size: 1.75rem;
+}
+.calc_main_title_white {
+  font-size: 1.75rem;
+color:#fff;
+font-weight: 700;
+}
+.calc_subtitle {
+font-size: 1.25rem;
+font-weight: 500;
+line-height: 25px;
+color:#fff;
+}
+
+.calc_legend_min {
+font-weight: 300;
+font-size: 1rem;
+}
+.calc_secondary_legend {
+  font-size: .8rem;
+}
+.calc_white_border {
+border-left: solid 3px #fff;
+padding-left: 5px;
+}
+
+.calc_green_border {
+border-left: solid 3px #14da13;
+padding-left: 5px;
+}
+
+.calc_big_number_green {
+color: #14da13;
+font-size: 1.4rem!important;
+font-weight: 500;
+}
+.calc_first_result{
+  font-size:1.1rem;
+line-height:1.3rem
+}
+.calc_btn_green {
+width: 100%;
+background-color: #01B400;
+color: #fff;
+padding: 10px 0;
+border-radius: 5px;
+border: unset;
+font-family: 'Sarabun', sans-serif;
+font-size: 14px;
+text-transform: uppercase;
+font-weight: 600;
+}
+
+.calc_btn_green:hover {
+background-color: #248c16;
+}
+
+.calc_typing_money {
+padding: 5px!important;
+  border-radius: 5px;
+  background-color: transparent!important;
+  border: solid 2px #fff!important;
+  color: #fff!important;
+}
+
+.calc_erase_padding{
+padding-bottom:0;
+    }
+
+.calc_data {
+font-weight: 300;
+color: #666;
+}
+
+.calc_data_result {
+font-weight: 500;
+color: #666;
+}
+
+.calc_how_legend {
+font-size: .9rem;
+font-weight: 300;
+}
+
+#calc-result {
+position: absolute;
+text-align: center;
+width: 100%;
+pointer-events:none;
+}
+#calc-result-mobile {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    pointer-events:none;
+}
+.calc_table_result{
+width: 100%;
+  margin: 0 2%;
+}
+.calc_text_data{
+color: #666666;
+  padding-bottom: 10px;
+  font-weight: 300;
+width:50%;
+padding-left: 15px!important;
+font-family: 'Sarabun', sans-serif;
+  line-height: 25px;
+}
+.calc_green_text{
+      color: #01B400;
+    }      
+.calc__chart__text1{
+color: #01B400;
+}
+.calc__chart__text2{
+color: #2B2B2B;
+}
+#result-graph{
+font-weight: 500;
+}
+#input-graph{
+font-weight: 500;
+}
+.entry-content tr td, body.et-pb-preview #main-content .container tr td {
+  border-top: unset;
+    }
+    .entry-content table:not(.variations), body.et-pb-preview #main-content .container table {
+  border: unset;
+}
+/*fin de estilos generales */
+/*custom media querys*/
+@media (min-width: 879px) and (max-width: 1024px) {
+.calc_main_title {
+  font-size: 1.4rem;
+}
+.calc_main_title_white {
+  font-size: 1.4rem;
+}
+.calc_subtitle {
+  font-size: 1rem;
+}
+
+.calc_big_number_green {
+  font-size: 1.2rem!important;
+}
+
+.calc_legend_min {
+  font-size: .9rem;
+}
+
+.calc_secondary_legend {
+  font-size: .8rem!important;
+}
+.calc_first_result{
+  font-size:.9rem;
+}
+}
+
+@media (min-width: 768px) and (max-width: 878px) {
+.calc_main_title {
+  font-size: 1.2rem;
+}
+.calc_main_title_white {
+  font-size: 1.2rem;
+}
+.calc_subtitle {
+  font-size: 1rem;
+}
+
+.calc_secondary_legend {
+  font-size: .7rem;
+}
+
+.calc_legend_min {
+  font-size: .78rem;
+}
+
+.calc_totals {
+  font-size: .9rem;
+  line-height: 1.3rem;
+}
+
+.calc_helper_fix_padding {
+  max-width: 50% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.calc_big_number_green {
+  font-size: 1.2rem!important;
+}
+}
+@media (min-width: 768px) and (max-width: 948px){
+.calc_text_data{
+  width: 50%;
+}
+.calc__text__results {
+  font-size: 1rem;
+}
+.calc_text_data {
+  font-size: 1rem;
+  line-height: 1.3rem;
+  padding-right: 5px!important;
+}
+.calc_no_right_padding{
+  padding-right:15px;
+}
+.calc_text_data {
+  font-size: .9rem;
+  line-height: 1.3rem;
+}
+}
+@media (min-width: 768px) and (max-width: 948px){
+.calc_text_data {
+  font-size: 1rem;
+  line-height: 1.3rem;
+}
+    }
+@media (max-width: 459px) {
+.calc_main_title {
+  font-size: 1.2rem;
+}
+.calc_main_title_white {
+  font-size: 1.2rem;
+}
+.calc_subtitle {
+  font-size: 1.1rem;
+}
+
+.calc_legend_min {
+  font-size: .75rem;
+}
+
+.calc_secondary_legend {
+  font-size: .7rem;
+}
+
+.calc_big_number_green {
+  
+  font-size: 1rem!important;
+}
+.calc_big_number_white{
+  font-size: 1rem;
+}
+.calc_totals {
+  font-size: .9rem;
+}
+
+.calc_helper_fix_padding {
+  max-width: 50% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.calc_text_data {
+  font-size: .9rem;
+}
+
+.calc_custom_col {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.calc_align_result{
+  margin:auto;
+  padding-top:30px;
+}
+.calc_no_right_padding {
+padding-right: 0;
+}
+}
+@media (min-width: 375px){
+#calc-in-small{
+  display: none;
+}
+}
+@media (max-width: 375px){
+#calc-in-small{
+  margin-left: '3em';
+}
+#calc-in-large{
+  display: none;
+}
+}
+@media (max-width: 1249px){
+.calc__chart__text1{
+  font-size: .8rem;
+}
+.calc__chart__text2{
+  font-size: .8rem;
+}
+}
+</style>
+</head>
+
+<body> 
+     <div class="container-fluid mr-0 ml-0">
+      <div class="row">
+          <div class="col-md-6 col-sm-12 calc__input__container">
+
+              <h3 class="calc_main_title_white">Prueba nuestra calculadora</h3>
+              <h3 class="calc_main_title_white">¿Cuánto quieres invertir?</h3>
+
+              <h6 class="calc_helper_margin calc_subtitle">WORTEV CAPITAL crece tu dinero apoyando empresas mexicanas
+              </h6>
+
+              <div class="row">
+                  <div class="col-6">
+                      <h6 class="calc_subtitle">Monto de inversión</h6>
+                      <p class="calc_legend_min">Mínimo MXN $10,000</p>
+                  </div>
+                  <div class="col-6 text-right">
+                      <label for="cantidad">$</label>
+                      <input placeholder="10,000" type="text" name="cantidad" id="calc-cantidad"
+                          class="calc__input__cantidad calc_typing_money">
+                      <p id="calc-hint" class="calc_secondary_legend">Escribe una cantidad</p>
+                  </div>
+              </div>
+
+              <input type="range" min="0" max="23" value="0" id="calc-myRange1" class="calc__slider">
+
+              <div class="row calc_helper_top">
+                  <div class="col-6">
+                      <h6 class="calc_subtitle">Plazo a invertir</h6>
+                      <p class="calc_legend_min">Mínimo un año</p>
+                  </div>
+                  <div class="col-6 text-right">
+                      <p><span id="calc-tiempo">1</span> años</p>
+                  </div>
+              </div>
+
+
+              <input type="range" min="0" max="10" value="1" id="calc-myRange2" class="calc__slider2">
+
+              <div class="row calc_helper_top calc_align_result">
+                  <div class="col-7 calc_custom_col">
+                      <p class="calc_white_border calc_totals calc_first_result">Con una inversión de</p>
+                      <p class="calc_green_border calc_totals calc_first_result calc_green_text">Obtendrás un rendimiento bruto de</p>
+                  </div>
+                  <div class="col-5 text-right calc_custom_col_right calc_no_right_padding">
+                      <p class="calc_big_number_white">$<span id="calc-input-text1">10,000.00</span></p>
+                      <p id="calc-input-text2" class="calc_big_number_green">$2,048.16</p>
+                  </div>
+              </div>
+
+              <button class="calc_btn_green calc_helper_top">Quiero invertir</button>
+
+              <div class="d-none d-sm-block calc_helper_top"><br>
+                  <p class="calc_how_legend"><b style="font-weight:500;">¿Cómo calculamos estos datos?</b> <br>
+
+                      Nuestro modelo hace crecer el capital de nuestros inversionistas a través de un ecosistema
+                      especializado en emprendimiento, integrado por un fondo de capital emprendedor, una aceleradora
+                      inteligente de negocios y una plataforma educativa, que impulsa el nacimiento, desarrollo y
+                      expansión de empresas de alto impacto. WORTEV CAPITAL es simple, accesible y rentable. Si estás
+                      decidido a empezar, esta es una de las mejores opciones para invertir.</p>
+              </div>
+          </div>
+
+          <div class="col-md-6 col-sm-12 calc__result__container">
+              <h3 class="calc_main_title">Desgloce de rendimientos</h3>
+              <div class="row calc_helper_top">
+                  <table class="calc_table_result">
+                      <tr>
+                          <td class="calc_text_data">Monto a invertir</td>
+                          <td id="calc-result-text1" class="calc__text__results">$10,000.00</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Redimiento mensual</td>
+                          <td id="calc-result-text2" class="calc__text__results">$200.00</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">IVA de 16% (del 2%)</td>
+                          <td id="calc-result-text3" class="calc__text__results">$32.00</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Subtotal mensual</td>
+                          <td id="calc-result-text4" class="calc__text__results">$232.00</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Retención del IVA mensual 10.66%</td>
+                          <td id="calc-result-text5" class="calc__text__results">-$21.32</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Retención del ISR mensual 20%</td>
+                          <td id="calc-result-text6" class="calc__text__results">-$40.00</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Total de retención mensual</td>
+                          <td id="calc-result-text7" class="calc__text__results">-$61.32</td>
+                      </tr>
+                      <tr>
+                          <td class="calc_text_data">Total a depositar mensual</td>
+                          <td id="calc-result-text8" class="calc__text__results">$170.68</td>
+                      </tr>
+                  </table>
+                  <!-- <div class="col-9 text-left calc_data calc_helper_fix_padding calc_custom_col">
+                      <p class="calc_text_data">Monto a invertir</p>
+                      <p class="calc_text_data">Redimiento mensual</p>
+                      <p class="calc_text_data">IVA de 16% (del 2%)</p>
+                      <p class="calc_text_data">Subtotal mensual</p>
+                      <p class="calc_text_data">Retención del IVA mensual 10.66%</p>
+                      <p class="calc_text_data">Retención del ISR mensual 20%</p>
+                      <p class="calc_text_data">Total de retención mensual</p>
+                      <p class="calc_text_data">Total a depositar mensual</p>
+                  </div>
+                  <div class="col-3 text-right calc_data_result calc_helper_fix_padding">
+                      <p id="calc-result-text1" class="calc__text__results">$ 10,000.00</p>
+                      <p id="calc-result-text2" class="calc__text__results">$ 200.00</p>
+                      <p id="calc-result-text3" class="calc__text__results">$ 32.00</p>
+                      <p id="calc-result-text4" class="calc__text__results">$ 232.00</p>
+                      <p id="calc-result-text5" class="calc__text__results">-$ 21.32</p>
+                      <p id="calc-result-text6" class="calc__text__results">-$ 40.00</p>
+                      <p id="calc-result-text7" class="calc__text__results">-$ 61.32</p>
+                      <p id="calc-result-text8" class="calc__text__results">$ 170.68</p>
+                  </div> -->
+                  <div class="calc__line"></div> <br>
+              </div>
+              <div class="row">
+                  <div class="col-6 calc_no_right_padding">
+                      <p class="calc_subtitle calc_no_right_padding" style="color:#2b2b2b">Total a depositar</p>
+                  </div>
+                  <div class="col-6 text-right">
+                      <p id="calc-result-total" class="calc_subtitle" style="color:#2b2b2b">$ 2,048.16</p>
+                  </div>
+              </div>
+
+              <!-- Segunda opción de gráfico -->
+              <div id="calc-in-large">
+                  <div id="calc-chart" class="calc__chart"></div>
+                  <div id="calc-result">
+                      <p class="calc__chart__text1 calc_erase_padding">Redimiento bruto <br> <span
+                              id="result-graph"
+                              style="font-size: 1.5rem;">$2,048.16</span></p>
+                      <p class="calc__chart__text2">Inversión <br> <span id="input-graph" style="font-size: 1.5rem;">$10,000.00</span>
+                      </p>
+                  </div>
+              </div>
+
+
+              <!-- Primera opción de gráfico -->
+              <!-- <div class="calc__graph__container">
+                      <div class="calc__graph__circular">
+                          <div class="calc__graph__inner"></div>
+                          <div class="calc__graph__circle">
+                              <div class="calc__graph__bar calc__graph__left">
+                                  <div class="calc__graph__progress"></div>
+                              </div>
+                              <div class="calc__graph__bar calc__graph__right">
+                                  <div class="calc__graph__progress"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div> -->
+          </div>
+        
+          <div id="calc-in-small" class="d-xs-block d-sm-none">
+                  <div id="calc-chart-mobile" class="calc__chart"></div>
+                  <div id="calc-result-mobile">
+                      <p class="calc__chart__text1">Redimiento bruto <br> <span
+                              id="result-graph-mobile"
+                              style="font-size: 1.5rem;">$2,048.16</span></p>
+                      <p class="calc__chart__text2">Inversión <br> <span id="input-graph-mobile" style="font-size: 1.5rem;">$10,000.00</span>
+                      </p>
+                  </div>
+          </div>
+          
+          
+          <div class="d-block d-sm-none calc_bot">
+              <p class="calc_how_legend calc_helper_title"><b style="font-weight:500;">¿Cómo calculamos estos datos?</b></p> <br>
+              <p id="calc-helper-text" class="calc_helper_bot calc_how_legend">
+                  Nuestro modelo hace crecer el capital de nuestros inversionistas a través de un ecosistema
+                  especializado en emprendimiento, integrado por un fondo de capital emprendedor, una aceleradora
+                  inteligente de negocios y una plataforma educativa, que impulsa el nacimiento, desarrollo y
+                  expansión de empresas de alto impacto. WORTEV CAPITAL es simple, accesible y rentable. Si estás
+                  decidido a empezar, esta es una de las mejores opciones para invertir.</p>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    // Variables para slider
+var slider1 = document.getElementById("calc-myRange1");
+var output1 = document.getElementById("calc-cantidad");
+var slider2 = document.getElementById("calc-myRange2");
+var output2 = document.getElementById("calc-tiempo");
+
+//Variables para actualizar textos
+var calcHint = document.getElementById("calc-hint");
+var inputText1 = document.getElementById("calc-input-text1");
+var inputText2 = document.getElementById("calc-input-text2");
+
+var resultText1 = document.getElementById("calc-result-text1");
+var resultText2 = document.getElementById("calc-result-text2");
+var resultText3 = document.getElementById("calc-result-text3");
+var resultText4 = document.getElementById("calc-result-text4");
+var resultText5 = document.getElementById("calc-result-text5");
+var resultText6 = document.getElementById("calc-result-text6");
+var resultText7 = document.getElementById("calc-result-text7");
+var resultText8 = document.getElementById("calc-result-text8");
+var resultTotal = document.getElementById("calc-result-total");
+
+var inputGraph = document.getElementById("input-graph");
+var resultGraph = document.getElementById("result-graph");
+var inputGraphMob = document.getElementById("input-graph-mobile");
+var resultGraphMob = document.getElementById("result-graph-mobile");
+
+var calcValues = [0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 2000000, 3000000, 4000000, 5000000]
+var auxValues=0;
+
+    
+// Variables para gráfico
+var montoInic = 10000;
+var plazoInv = 1;
+
+// Configuración de gráfico
+
+//Opción 1
+var options = {
+series: [2400, 10000],
+chart: {
+  width: '470px',
+  type: 'donut',
+},
+colors: ['#14DA13', '#2b2b2b'],
+plotOptions: {
+  pie: {
+    donut: {
+      size: '85%',
+    },
+  },
+},
+labels: ['Rendimiento bruto', 'Inversión'],
+dataLabels: {
+  enabled: false,
+},
+responsive: [{
+  breakpoint: 1250,
+  options: {
+    chart: {
+      width: '100%'
+    },
+  }
+}],
+legend: {
+  show: false,
+},
+};
+    
+var options2 = {
+  series: [2400, 10000],
+  chart: {
+    width: '350px',
+    type: 'donut',
+  },
+  colors: ['#14DA13', '#2b2b2b'],
+  plotOptions: {
+    pie: {
+      donut: {
+        size: '85%',
+      },
+    },
+  },
+  labels: ['Rendimiento bruto', 'Inversión'],
+  dataLabels: {
+    enabled: false,
+  },
+  legend: {
+    show: false,
+  },
+};
+  
+
+// valor inicial
+var initialValue = formatear(parseInt(10000).toFixed(2));
+output1.value = initialValue;
+
+var chart = new ApexCharts(document.querySelector("#calc-chart"), options);
+chart.render();
+var chart2 = new ApexCharts(document.querySelector("#calc-chart-mobile"), options2);
+chart2.render();
+        
+
+
+// Control de sliders
+slider1.oninput = function () {
+auxValues = calcValues[this.value];
+montoInic = auxValues;
+console.log(montoInic);
+var aux = (parseInt(auxValues)).toFixed(2);
+output1.value = formatear(aux);
+inputText1.innerHTML = formatear(aux);
+calcular(montoInic, plazoInv);
+}
+slider2.oninput = function () {
+plazoInv = this.value;
+console.log(montoInic);
+output2.innerHTML = this.value;
+calcular(montoInic, plazoInv);
+}
+output1.onchange = function () {
+montoInic = parseInt(this.value);
+console.log(montoInic);
+var aux = formatear(parseInt(this.value).toFixed(2));
+inputText1.innerHTML = aux;
+output1.value = aux;
+calcular(montoInic, plazoInv);
+}
+slider1.addEventListener("input", function () {
+var x = slider1.value*4.3478;
+var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
+slider1.style.background = color;
+})
+slider2.addEventListener("input", function () {
+var x = slider2.value * 10;
+var color = 'linear-gradient(90deg, #5BE55A ' + x + '%, #ffff ' + x + '%)';
+slider2.style.background = color;
+})
+
+//Actualización de datos en tiempo real y funcionalidad de calculadora
+function calcular(monto, tiempo) {
+if (monto >= 10000 & monto <=5000000) {
+  calcHint.innerHTML = "Escribe una cantidad"
+  inputGraph.innerHTML = "$" + monto.toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  inputGraphMob.innerHTML = "$" + monto.toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText1.innerHTML = "$" + monto.toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText2.innerHTML = "$" + (monto * 0.02).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText3.innerHTML = "$" + (monto * 0.02 * 0.16).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText4.innerHTML = "$" + (monto * 0.02 + monto * 0.02 * 0.16).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText5.innerHTML = "-$" + (monto * 0.02 * 0.1066).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText6.innerHTML = "-$" + (monto * 0.02 * 0.2).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText7.innerHTML = "-$" + (monto * 0.02 * 0.1066 + monto * 0.02 * 0.2).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultText8.innerHTML = "$" + (monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultTotal.innerHTML = "$" + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  inputText2.innerHTML = "$" + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultGraph.innerHTML = "$" + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+  resultGraphMob.innerHTML = "$" + ((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 * tiempo).toLocaleString('es-MX', {
+    minimumFractionDigits: 2
+  });
+    chart.updateSeries([((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 *tiempo), monto]);
+  chart2.updateSeries([((monto * 0.02 + monto * 0.02 * 0.16 - monto * 0.02 * 0.1066 - monto * 0.02 * 0.2) * 12 *tiempo), monto]);
+} else {
+  if(monto<=10000){
+    calcHint.innerHTML = "Tu cantidad debe ser mayor a $10,000.000";
+  }
+  else if(monto>=5000000){
+    calcHint.innerHTML = "Escribe una cantidad menor";
+  }
+}
+}
+
+//Dar formato a números
+function formatear(dato) {
+return dato.replace(/./g, function (c, i, a) {
+  return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+});
+}
+
+// center chart copy
+function centerLegend() {
+var chartBox = document.getElementById("calc-chart");
+var chartLegend = document.getElementById("calc-result");
+var chartBoxHeight = chartBox.offsetHeight;
+var messageBoxHeight = chartLegend.offsetHeight;
+
+chartLegend.style.top = (chartBoxHeight - messageBoxHeight) / 2 + "px";
+
+    var chartBox2 = document.getElementById("calc-chart-mobile");
+    var chartLegend2 = document.getElementById("calc-result-mobile");
+    var chartBoxHeight2 = chartBox2.offsetHeight;
+    var messageBoxHeight2 = chartLegend2.offsetHeight;
+  
+    chartLegend2.style.top = (chartBoxHeight2 - messageBoxHeight2) / 2 + "px";
+}
+
+centerLegend();
+
+window.addEventListener("resize", function () {
+setTimeout(function () {
+  centerLegend();
+}, 200);
+});
+// end: center chart copy
+
+//Hide calc-help
+// function hide() {
+//   var text = document.getElementById("calc-helper-text");
+//   var flecha = document.getElementsByClassName("calc_helper_arrow");
+//   flecha.style = "transform: rotateX(10deg);"
+//   if(text.classList.contains("d-none")){
+//     text.classList.remove("d-none");
+//   }
+//   else {
+//     text.classList.add("d-none");
+//   }
+// }
+
+
+
+//Alternativas calculadora
+
+//Opción 2
+// var options = {
+//     series: [70],
+//     chart: {
+//     height: 350,
+//     type: 'radialBar',
+//   },
+//   plotOptions: {
+//     radialBar: {
+//       hollow: {
+//         size: '75%',
+//       }
+//     },
+//   },
+//   colors:['#14DA13'],
+//   labels: ['Rendimiento bruto'],
+// };
+
+// var chart = new ApexCharts(document.querySelector("#chart"), options);
+// chart.render();
+
+
+//Opción 3
+// var options = {
+//   series: [20, 30, 50],
+//   chart: {
+//   id: 'mychart',
+//   height: 500,
+//   type: 'radialBar',
+//   },
+//   plotOptions: {
+//     radialBar: {
+//       offsetY: 0,
+//       offsetX: 10,
+//       startAngle: 0,
+//       endAngle: 270,
+//       hollow: {
+//         margin: 5,
+//         size: '30%',
+//         background: 'transparent',
+//         image: undefined,
+//       },
+//       dataLabels: {
+//         name: {
+//           show: false,
+//         },
+//         value: {
+//           show: false,
+//         }
+//       }
+//     }
+//   },
+//   colors: ['#1ab7ea', '#0084ff', '#39539E'],
+//   labels: ['Inversión WORTEV', 'Inversión tradicional', 'Inversión en bancos'],
+//   legend: {
+//     show: true,
+//     floating: true,
+//     fontSize: '16px',
+//     position: 'left',
+//     offsetX: 30,
+//     offsetY: 30,
+//     labels: {
+//       useSeriesColors: true,
+//     },
+//     markers: {
+//       size: 0
+//     },
+//     formatter: function(seriesName, opts) {
+//       return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+//     },
+//     itemMargin: {
+//       vertical: 3
+//     }
+//   },
+//   responsive: [{
+//     breakpoint: 480,
+//     options: {
+//       legend: {
+//           show: false
+//       }
+//     }
+//   }]
+// };
+// var chart = new ApexCharts(document.querySelector("#chart"), options);
+// chart.render();
+</script>
+
+</body>
